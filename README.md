@@ -222,3 +222,48 @@ Hospedagem e endereço público ainda não definidos. O link de acesso será inc
 ## 📄 Licença
 
 A licença do código deste projeto ainda será definida. As condições de uso e atribuição dos materiais de terceiros serão verificadas e respeitadas.
+
+## Integrações adicionadas — WakaTime e contato
+
+### WakaTime público
+
+A seção utiliza os três compartilhamentos públicos configurados em `src/services/wakatime.js`, via JSONP, sem API key, jQuery ou proxy. O helper cria callbacks únicos, aplica timeout de 15 segundos e remove scripts/callbacks ao concluir, falhar ou desmontar a seção. Resultados válidos ficam em memória por cinco minutos para evitar consultas repetidas ao navegar ou trocar o idioma.
+
+O compartilhamento de tempo retorna `data[].range.date` e `data[].grand_total.total_seconds`. Os cards exibem a soma do período e a média pelos dias retornados, incluindo dias com zero. Linguagens e sistemas retornam `data[].name` e `data[].percent`, sem datas: a interface informa que o período desses dois gráficos não foi fornecido. Não há números fictícios de fallback.
+
+### EmailJS
+
+Dependência adicionada: `@emailjs/browser`, SDK oficial para envio pelo formulário. Os ícones usam SVG local, sem dependências adicionais.
+
+1. Crie uma conta no [EmailJS](https://www.emailjs.com/) e, em **Email Services → Add New Service**, conecte o provedor que enviará as mensagens. Autorize a conta e confirme o teste do serviço. Copie o **Service ID**.
+2. Em **Email Templates → Create New Template**, configure:
+   - **To Email:** `profissionalevelyncosta@gmail.com` (fixo no painel, não recebido do visitante).
+   - **From Name:** `{{from_name}}`.
+   - **From Email:** utilize o endereço padrão/autenticado do serviço.
+   - **Reply To:** `{{reply_to}}`.
+   - **Subject:** `Contato pelo portfólio — {{from_name}}`.
+   - **Content:** use o conteúdo abaixo. Salve e copie o **Template ID**.
+
+```text
+Nome: {{from_name}}
+E-mail para resposta: {{reply_to}}
+
+Mensagem:
+{{message}}
+```
+
+3. Em **Account**, copie a **Public Key**. O código envia somente os parâmetros `from_name`, `reply_to` e `message`.
+4. Copie `.env.example` para `.env.local` na raiz e preencha:
+
+```dotenv
+VITE_EMAILJS_SERVICE_ID=seu_service_id
+VITE_EMAILJS_TEMPLATE_ID=seu_template_id
+VITE_EMAILJS_PUBLIC_KEY=sua_public_key
+```
+
+5. Reinicie `npm run dev`. Para o site publicado, configure essas mesmas variáveis no ambiente de build da hospedagem e gere um novo build. Se configurar uma lista de domínios permitidos no EmailJS, inclua o domínio publicado e o endereço local usado nos testes.
+6. Faça um envio de teste após configurar e confira o recebimento e o Reply To. O formulário mostra sucesso somente após resposta bem-sucedida do serviço; falhas preservam os campos. Sem os três valores, o envio fica desabilitado e o link alternativo abre `mailto:profissionalevelyncosta@gmail.com`. Abrir o aplicativo não significa que uma mensagem foi enviada.
+
+As variáveis `VITE_*` são públicas e incorporadas ao JavaScript do build. Não inclua senha, private key ou credenciais privadas. `.env.local` já é ignorado pelo Git por meio de `*.local`.
+
+Referências: [instalação do SDK](https://www.emailjs.com/docs/sdk/installation/), [método send](https://www.emailjs.com/docs/sdk/send/). Textos PT/EN ficam em `src/data/translations.js`; a apresentação está em `src/sections/WakaTime.jsx` e `src/sections/Contato.jsx`.

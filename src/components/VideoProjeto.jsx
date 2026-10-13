@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 // Este componente cuida apenas do vídeo e da preferência por movimento reduzido.
-export default function VideoProjeto({ src, nome }) {
+export default function VideoProjeto({ src, nome, t }) {
   const videoRef = useRef(null)
   // A preferência é lida antes da primeira renderização para evitar autoplay indevido.
   const [movimentoReduzido, setMovimentoReduzido] = useState(
@@ -22,8 +22,8 @@ export default function VideoProjeto({ src, nome }) {
   return (
     <video ref={videoRef} className="project-media" src={src}
       autoPlay={!movimentoReduzido} muted loop playsInline controls preload="metadata"
-      aria-label={`Demonstração do projeto ${nome}`}>
-      Seu navegador não suporta vídeo. <a href={src}>Abrir demonstração de {nome}</a>.
+      aria-label={`${t.videoLabel} ${nome}`}>
+      {t.videoUnsupported} <a href={src}>{t.videoOpen} {nome}</a>.
     </video>
   )
 }
