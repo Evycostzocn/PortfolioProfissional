@@ -53,7 +53,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10
   .workspace { grid-template-columns: 210px minmax(0, 1fr); }
   .about-grid { grid-template-columns: 1fr; gap: 24px; }
 }
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .header { padding: 12px; gap: 10px; }
   .identity { flex-wrap: wrap; font-size: .9rem; }
   .identity .muted { display: none; }
@@ -70,6 +70,12 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10
   .card { padding: 18px; }
   .terminal { padding: 18px; overflow-wrap: anywhere; }
   footer { padding: 12px 18px; }
+}
+@media (max-width: 480px) {
+  .top-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .top-nav button { overflow-wrap: anywhere; }
+  .timeline { padding-left: 15px; margin-left: 4px; }
+  .timeline > li::before { left: -21px; }
 }
 
 /* As mídias respeitam o tamanho do card e mantêm sua proporção. */
@@ -121,6 +127,7 @@ video:focus-visible { outline: 2px solid #95dbfa; outline-offset: 3px; }
 @media (max-width: 640px) {
   .terminal-form { flex-wrap: wrap; }
   .terminal-prompt { flex-basis: 100%; }
+  .terminal-form input { flex-basis: 140px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .language button, .terminal-form button { transition: none; }
@@ -147,7 +154,7 @@ video:focus-visible { outline: 2px solid #95dbfa; outline-offset: 3px; }
 .recommendation-content { min-width: 0; }
 .recommendation-content blockquote { margin: 0; line-height: 1.7; }
 .recommendation-translation { margin: 12px 0 0; font-size: .8rem; }
-@media (max-width: 640px) {
+@media (max-width: 1000px) {
   .recommendation-card { grid-template-columns: minmax(0, 1fr); }
   .recommendation-person { flex-direction: row; }
 }

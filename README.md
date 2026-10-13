@@ -175,7 +175,8 @@ Os comandos acima correspondem à configuração prevista para React com Vite e 
 
 ## 📦 Implantação
 
-Hospedagem e endereço público ainda não definidos. O link de acesso será incluído após o deploy.
+Hospedagem realizada pela Vercel.
+Endereço público: evelyncosta.dev
 
 ## ✒️ Autora
 

@@ -58,8 +58,7 @@ export default function App() {
         </div>
       </div>
       <footer>
-        <span>Evelyn Costa · {t.professionalPortfolio}</span>
-        <span>Sprint 01 <span aria-hidden="true">·</span> <a href="https://github.com/Evycostzocn">GitHub</a></span>
+        <span>© 2026 Evelyn Costa</span>
       </footer>
     </div>
   )

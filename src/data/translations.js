@@ -2,7 +2,6 @@
 export const translations = {
   "pt": {
     "portfolio": "Portfólio",
-    "professionalPortfolio": "Portfólio profissional",
     "skip": "Pular para o conteúdo",
     "mainMenu": "Menu principal",
     "explorer": "EXPLORADOR",
@@ -105,7 +104,6 @@ export const translations = {
   },
   "en": {
     "portfolio": "Portfolio",
-    "professionalPortfolio": "Professional portfolio",
     "skip": "Skip to content",
     "mainMenu": "Main menu",
     "explorer": "EXPLORER",
