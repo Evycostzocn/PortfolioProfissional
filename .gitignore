@@ -15,6 +15,14 @@ dist-ssr
 .env.*
 !.env.example
 
+# Credenciais locais, chaves privadas e capturas de rede com dados de formulários
+.aws/
+*.pem
+*.key
+*.p12
+*.pfx
+*.har
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

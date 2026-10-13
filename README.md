@@ -6,12 +6,6 @@ A interface é inspirada no Visual Studio Code: cada seção é representada por
 
 Projeto acadêmico da disciplina de Desenvolvimento e Integração de Aplicações Web (DIAW), do curso de Engenharia de Software da PUC Minas.
 
-## 📌 Status do projeto
-
-**Sprint 01: planejamento, prototipação e estrutura inicial do front-end.**
-
-Os itens abaixo representam o planejamento do projeto; as funcionalidades serão implementadas ao longo das sprints.
-
 ## 🎯 Objetivo
 
 Criar um site responsivo com identidade visual própria, permitindo que visitantes conheçam minha formação, atuação profissional, interesses, objetivos e projetos por meio de uma navegação inspirada em um editor de código (VSCODE).
@@ -179,31 +173,6 @@ npm run preview
 
 Os comandos acima correspondem à configuração prevista para React com Vite e serão confirmados após a criação do front-end inicial.
 
-## 🗓️ Planejamento das entregas
-
-### Sprint 01 — Planejamento e prototipação
-
-- Criação do repositório e README inicial.
-- Wireframes de média fidelidade no Figma.
-- Protótipo inicial do front-end.
-- Implementação da navegação e do layout principal.
-- Inclusão das imagens dos protótipos e da estrutura prevista no README.
-
-### Sprint 02 — Funcionalidades principais
-
-- Apresentação em português e inglês.
-- Timeline dinâmica de projetos.
-- Organização das experiências profissionais.
-- Links de contato e formulário com envio de e-mail.
-- Validações básicas e responsividade.
-
-### Sprint 03 — Hospedagem e finalização
-
-- Publicação do site na nuvem.
-- Ajustes visuais e de usabilidade.
-- Inclusão de imagens ou GIFs dos projetos em funcionamento.
-- Atualização do README com dependências, instruções e link do site.
-
 ## 📦 Implantação
 
 Hospedagem e endereço público ainda não definidos. O link de acesso será incluído após o deploy.
@@ -233,37 +202,10 @@ O compartilhamento de tempo retorna `data[].range.date` e `data[].grand_total.to
 
 ### EmailJS
 
-Dependência adicionada: `@emailjs/browser`, SDK oficial para envio pelo formulário. Os ícones usam SVG local, sem dependências adicionais.
+A seção de contato apresenta links para LinkedIn, GitHub e Instagram, identificados por ícones, e um formulário com campos de nome, e-mail e mensagem.
 
-1. Crie uma conta no [EmailJS](https://www.emailjs.com/) e, em **Email Services → Add New Service**, conecte o provedor que enviará as mensagens. Autorize a conta e confirme o teste do serviço. Copie o **Service ID**.
-2. Em **Email Templates → Create New Template**, configure:
-   - **To Email:** `profissionalevelyncosta@gmail.com` (fixo no painel, não recebido do visitante).
-   - **From Name:** `{{from_name}}`.
-   - **From Email:** utilize o endereço padrão/autenticado do serviço.
-   - **Reply To:** `{{reply_to}}`.
-   - **Subject:** `Contato pelo portfólio — {{from_name}}`.
-   - **Content:** use o conteúdo abaixo. Salve e copie o **Template ID**.
+O envio utiliza o **EmailJS**, integrado ao React pelo SDK oficial `@emailjs/browser`, para encaminhar as mensagens ao meu e-mail profissional. O formulário valida os campos, informa o resultado do envio e mantém os dados preenchidos em caso de falha.
 
-```text
-Nome: {{from_name}}
-E-mail para resposta: {{reply_to}}
+A integração foi configurada e testada com recebimento real das mensagens. Os textos e avisos estão disponíveis em português e inglês.
 
-Mensagem:
-{{message}}
-```
-
-3. Em **Account**, copie a **Public Key**. O código envia somente os parâmetros `from_name`, `reply_to` e `message`.
-4. Copie `.env.example` para `.env.local` na raiz e preencha:
-
-```dotenv
-VITE_EMAILJS_SERVICE_ID=seu_service_id
-VITE_EMAILJS_TEMPLATE_ID=seu_template_id
-VITE_EMAILJS_PUBLIC_KEY=sua_public_key
-```
-
-5. Reinicie `npm run dev`. Para o site publicado, configure essas mesmas variáveis no ambiente de build da hospedagem e gere um novo build. Se configurar uma lista de domínios permitidos no EmailJS, inclua o domínio publicado e o endereço local usado nos testes.
-6. Faça um envio de teste após configurar e confira o recebimento e o Reply To. O formulário mostra sucesso somente após resposta bem-sucedida do serviço; falhas preservam os campos. Sem os três valores, o envio fica desabilitado e o link alternativo abre `mailto:profissionalevelyncosta@gmail.com`. Abrir o aplicativo não significa que uma mensagem foi enviada.
-
-As variáveis `VITE_*` são públicas e incorporadas ao JavaScript do build. Não inclua senha, private key ou credenciais privadas. `.env.local` já é ignorado pelo Git por meio de `*.local`.
-
-Referências: [instalação do SDK](https://www.emailjs.com/docs/sdk/installation/), [método send](https://www.emailjs.com/docs/sdk/send/). Textos PT/EN ficam em `src/data/translations.js`; a apresentação está em `src/sections/WakaTime.jsx` e `src/sections/Contato.jsx`.
+As configurações são definidas por variáveis de ambiente. Para o site publicado, elas também devem ser configuradas na plataforma de hospedagem.
