@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { interpretarComando, secoes } from '../data/navigation.js'
 
 export default function Terminal({ t, onNavegar }) {
+  const [aberto, setAberto] = useState(false)
   const [comando, setComando] = useState('')
   // Guardamos tipos e dados, não frases traduzidas. Assim o histórico acompanha o idioma.
   const [historico, setHistorico] = useState([{ tipo: 'inicio' }])
@@ -12,7 +13,7 @@ export default function Terminal({ t, onNavegar }) {
     // Rola somente a área de histórico, sem usar scrollIntoView na página.
     const painel = historicoRef.current
     painel.scrollTop = painel.scrollHeight
-  }, [historico, t])
+  }, [historico, t, aberto])
 
   function executar(event) {
     event.preventDefault()
@@ -31,6 +32,13 @@ export default function Terminal({ t, onNavegar }) {
   return (
     <section className="terminal" aria-labelledby="titulo-terminal">
       <h2 id="titulo-terminal">{t.terminal}</h2>
+      <button className="terminal-toggle" type="button" aria-expanded={aberto}
+        aria-controls="painel-terminal" onClick={() => setAberto(!aberto)}>
+        <span aria-hidden="true">›_</span> {t.terminal}
+        <span aria-hidden="true">{aberto ? '▾' : '▸'}</span>
+      </button>
+      {/* Mantemos o painel montado para preservar os comandos e o histórico ao recolher. */}
+      <div id="painel-terminal" className={`terminal-content${aberto ? ' is-open' : ''}`}>
       <div className="terminal-history" ref={historicoRef} role="log"
         aria-label={t.terminalHistory} aria-live="polite" tabIndex={0}>
         {historico.map((item, indice) => (
@@ -59,6 +67,7 @@ export default function Terminal({ t, onNavegar }) {
           autoComplete="off" autoCapitalize="off" spellCheck={false} />
         <button type="submit">{t.terminalRun}</button>
       </form>
+      </div>
     </section>
   )
 }

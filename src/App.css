@@ -72,8 +72,6 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10
   footer { padding: 12px 18px; }
 }
 @media (max-width: 480px) {
-  .top-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .top-nav button { overflow-wrap: anywhere; }
   .timeline { padding-left: 15px; margin-left: 4px; }
   .timeline > li::before { left: -21px; }
 }
@@ -160,3 +158,34 @@ video:focus-visible { outline: 2px solid #95dbfa; outline-offset: 3px; }
 }
 .action-button, .contact-form button:not(:disabled) { background: #263c3a; color: #e6e9f0; border: 1px solid var(--accent); border-radius: 4px; padding: 12px 18px; }
 .action-button:hover, .contact-form button:not(:disabled):hover { background: #34524d; }
+
+/* No desktop os painéis continuam abertos; os controles só aparecem em telas menores. */
+.explorer .explorer-toggle, .terminal-toggle { display: none; }
+@media (max-width: 800px) {
+  .header { padding: 8px 12px; gap: 8px; }
+  .top-nav { display: none; }
+  .workspace { display: flex; flex-direction: column; }
+  .editor-body { flex: 1; }
+  .explorer { padding: 4px 12px; }
+  .explorer .explorer-toggle, .terminal-toggle {
+    display: flex; align-items: center; gap: 8px; min-height: 44px;
+    padding: 8px 10px; border: 1px solid var(--border); border-radius: 4px;
+    background: var(--sidebar); color: #e6e9f0; font-size: .9rem;
+  }
+  .explorer .explorer-toggle { width: auto; }
+  .explorer-content, .terminal-content { display: none; }
+  .explorer-content.is-open, .terminal-content.is-open { display: block; }
+  .explorer-content { padding: 8px 0; }
+  .explorer h2 { display: none; }
+  .explorer nav button { font-size: .85rem; }
+  .tabs { padding: 8px 12px 0; }
+  main { min-height: 0; padding: 18px 16px 24px; }
+  .about-grid { margin-top: 20px; }
+  .terminal { min-height: 0; padding: 8px 12px; }
+  .terminal h2 { display: none; }
+  .terminal-content { padding-top: 12px; }
+  .terminal-history { height: 120px; max-height: 25dvh; }
+  .terminal-form { flex-wrap: wrap; }
+  .terminal-prompt { flex-basis: 100%; }
+  .terminal-form input { flex-basis: 140px; min-height: 44px; font-size: 1rem; }
+}
