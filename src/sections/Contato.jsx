@@ -35,10 +35,22 @@ export default function Contato({ t }) {
     try {
       const resposta = await emailjs.send(serviceId, templateId,
         { from_name: nome, reply_to: email, message: mensagem }, { publicKey })
-      if (resposta.status < 200 || resposta.status >= 300) throw new Error('Envio recusado')
+      if (resposta.status < 200 || resposta.status >= 300) throw resposta
       setEstado('formSuccess')
       form.reset() // Só limpamos os campos após a confirmação do serviço.
-    } catch {
+    } catch (erro) {
+      if (import.meta.env.DEV) {
+        let texto = typeof erro === 'string' ? erro : erro?.text || erro?.message || 'Erro sem detalhes'
+        // A resposta pode repetir dados enviados; não registramos o objeto de erro nem o payload.
+        for (const valor of [nome, email, mensagem, serviceId, templateId, publicKey].filter(Boolean).sort((a, b) => b.length - a.length)) {
+          texto = texto.split(valor).join('[omitido]')
+        }
+        texto = texto.replace(/[^\s<>"']+@[^\s<>"']+/g, '[email omitido]')
+        console.error('[EmailJS] Falha no envio', {
+          status: typeof erro?.status === 'number' ? erro.status : null,
+          text: texto,
+        })
+      }
       setEstado('formError')
     } finally {
       enviandoRef.current = false

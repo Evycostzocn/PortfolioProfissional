@@ -1,5 +1,6 @@
 import Contato from './Contato.jsx'
 import WakaTime from './WakaTime.jsx'
+import Recomendacoes from './Recomendacoes.jsx'
 import fotoPrincipal from '../assets/images/fotoprincipal.jpeg'
 import logoQuasar from '../assets/images/quasar.jpeg'
 import logoReframax from '../assets/images/reframax.jpeg'
@@ -130,12 +131,7 @@ export default function Conteudo({ secaoAtual, t }) {
 
   if (secaoAtual === 'wakatime') return <WakaTime t={t} />
 
-  return (
-    <article className="card">
-      <span className="eyebrow">{t.recommendationsLabel}</span>
-      <h2>{t.recommendationsTitle}</h2>
-      <p>{t.recommendationsDescription}</p>
-      <p className="muted">{t.recommendationsNotice}</p>
-    </article>
-  )
+  if (secaoAtual === 'recomendacoes') return <Recomendacoes t={t} />
+
+  return null
 }

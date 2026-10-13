@@ -140,5 +140,16 @@ video:focus-visible { outline: 2px solid #95dbfa; outline-offset: 3px; }
 .social-icons svg { width: 26px; height: 26px; }
 .social-icons a:hover { background: #394352; color: #fff; border-color: var(--accent); }
 .mail-link { display: inline-block; padding: 12px 0; margin-top: 16px; }
+.recommendations-list { display: grid; gap: 24px; max-width: 800px; }
+.recommendation-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 24px; align-items: start; }
+.recommendation-person { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.recommendation-photo { display: block; width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
+.recommendation-content { min-width: 0; }
+.recommendation-content blockquote { margin: 0; line-height: 1.7; }
+.recommendation-translation { margin: 12px 0 0; font-size: .8rem; }
+@media (max-width: 640px) {
+  .recommendation-card { grid-template-columns: minmax(0, 1fr); }
+  .recommendation-person { flex-direction: row; }
+}
 .action-button, .contact-form button:not(:disabled) { background: #263c3a; color: #e6e9f0; border: 1px solid var(--accent); border-radius: 4px; padding: 12px 18px; }
 .action-button:hover, .contact-form button:not(:disabled):hover { background: #34524d; }
