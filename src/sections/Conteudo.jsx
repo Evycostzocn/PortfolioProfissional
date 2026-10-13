@@ -1,5 +1,41 @@
-// Somente a seção selecionada é exibida. Edite aqui os textos do portfólio.
-// Os espaços provisórios indicam conteúdos que serão preenchidos nas próximas sprints.
+import fotoPrincipal from '../assets/images/fotoprincipal.jpeg'
+import logoQuasar from '../assets/images/quasar.jpeg'
+import logoReframax from '../assets/images/reframax.jpeg'
+import infinityHub from '../assets/images/infinityhub.png'
+import desligaAi from '../assets/images/desligaai.png'
+import bigBang from '../assets/images/bigbang.mp4'
+import VideoProjeto from '../components/VideoProjeto.jsx'
+
+// Ordem provisória: reorganize esta lista do mais antigo ao mais recente
+// quando as datas forem confirmadas. Textos, tecnologias, links e mídias ficam aqui.
+// Descrições e tecnologias conferidas nos repositórios indicados em cada item.
+const projetos = [
+  {
+    nome: 'Infinity HUB',
+    descricao: 'Catálogo de jogos organizado por gênero, com foco em recomendações de jogos.',
+    tecnologias: ['HTML', 'CSS', 'JavaScript', 'JSON Server'],
+    repositorio: 'https://github.com/Evycostzocn/InfinityHUB',
+    imagem: infinityHub,
+    alt: 'Interface de cadastro e gerenciamento de jogos do Infinity HUB',
+  },
+  {
+    nome: 'DesligaAi',
+    descricao: 'Plataforma voltada ao equilíbrio digital, com ferramentas de autoconhecimento, monitoramento de hábitos e incentivo a atividades offline.',
+    tecnologias: ['HTML', 'CSS', 'JavaScript'],
+    repositorio: 'https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-2-ti1-2401100-desligaai',
+    imagem: desligaAi,
+    alt: 'Página inicial do DesligaAi com a proposta de equilibrar o tempo digital',
+  },
+  {
+    nome: 'Big Bang',
+    descricao: 'Jogo de sobrevivência em que dinossauros coletam alimentos e desviam de meteoros em um ambiente pré-histórico.',
+    tecnologias: ['Python', 'Pygame', 'Pytest'],
+    repositorio: 'https://github.com/defreitassl/Trabalho_Pygame',
+    video: bigBang,
+  },
+]
+
+// Somente a seção selecionada é exibida. Edite abaixo os textos do portfólio.
 export default function Conteudo({ secaoAtual }) {
   if (secaoAtual === 'sobre') {
     return (
@@ -7,11 +43,8 @@ export default function Conteudo({ secaoAtual }) {
         <h2 className="name">Evelyn Costa</h2>
         <p className="intro">Estudante de Engenharia de Software e desenvolvedora em formação.</p>
         <div className="about-grid">
-          <div className="photo-placeholder">
-            <img src="assets/images/fotoprincipal.jpeg" alt="Evelyn"/>
-            <span aria-hidden="true">EC</span>
-            <small>Espaço para foto de perfil</small>
-          </div>
+          {/* O import permite que o Vite encontre a foto também no build de produção. */}
+          <img className="profile-photo" src={fotoPrincipal} alt="Evelyn Costa" />
           <div>
             <h3>Olá, seja bem-vindo(a)!</h3>
             <p>Sou estudante de Engenharia de Software na PUC Minas e estagiária em Desenvolvimento Web na Quasar Tecnologia e Gestão. Gosto de transformar ideias em soluções, explorando o desenvolvimento, a pesquisa, o planejamento e os testes. Este portfólio reúne minha trajetória e os projetos que construo ao longo da minha formação.</p>
@@ -29,17 +62,23 @@ export default function Conteudo({ secaoAtual }) {
   if (secaoAtual === 'projetos') {
     return (
       <>
-        <p>Minha trajetória em projetos, do mais antigo ao mais recente.</p>
-        <p className="muted">Estrutura inicial da timeline. Os projetos e períodos serão adicionados depois.</p>
+        <p>Conheça alguns dos projetos da minha trajetória.</p>
+        <p className="muted">Linha do tempo em organização: a ordem cronológica ainda será confirmada.</p>
         <ol className="timeline">
-          {['Primeiro projeto da timeline', 'Próximo projeto da timeline'].map((titulo) => (
-            <li key={titulo}>
-              <article className="card">
-                <span className="eyebrow">Espaço reservado · período a preencher</span>
-                <h2>{titulo}</h2>
-                <p>Nome e descrição do projeto a preencher.</p>
-                <p className="muted">Tecnologias e link do repositório a adicionar.</p>
-                <div className="media-placeholder">Espaço para imagem ou GIF do projeto</div>
+          {projetos.map((projeto) => (
+            <li key={projeto.nome}>
+              <article className="card project-card">
+                <h2>{projeto.nome}</h2>
+                <p>{projeto.descricao}</p>
+                <ul className="technologies" aria-label={`Tecnologias de ${projeto.nome}`}>
+                  {projeto.tecnologias.map((tecnologia) => <li key={tecnologia}>{tecnologia}</li>)}
+                </ul>
+                <a className="repository-link" href={projeto.repositorio}>Ver repositório de {projeto.nome} ↗</a>
+                {projeto.video ? (
+                  <VideoProjeto src={projeto.video} nome={projeto.nome} />
+                ) : (
+                  <img className="project-media" src={projeto.imagem} alt={projeto.alt} loading="lazy" />
+                )}
               </article>
             </li>
           ))}
@@ -50,32 +89,38 @@ export default function Conteudo({ secaoAtual }) {
 
   if (secaoAtual === 'experiencias') {
     return (
-      <article className="card">
-        <span className="eyebrow">Trajetória profissional · em construção</span>
-        <h2>Modelagem de Processos</h2>
-        <dl className="details">
-          <dt>Empresa</dt><dd>Quasar Tecnologia e Gestão</dd>
-          <dt>Cargo</dt><dd>Estagiária de Analista de Produto</dd>
-          <dt>Período</dt><dd>Fevereiro/2026 até Agosto/2026</dd>
-          <dt>Descrição</dt><dd>Atuei na criação e modelagem de processos no sistema da empresa, utilizando BPMN para representar fluxos e participando de uma rotina de trabalho orientada por Scrum.</dd>
-        </dl>
-        <p></p>
-        <h2>Desenvolvimento Web</h2>
-        <dl className="details">
-          <dt>Empresa</dt><dd>Quasar Tecnologia e Gestão</dd>
-          <dt>Cargo</dt><dd>Estagiária de Desenvolvimento Web</dd>
-          <dt>Período</dt><dd>Setembro/2026 até atualmente</dd>
-          <dt>Descrição</dt><dd>Atuo no desenvolvimento front-end, com foco na responsividade do sistema e na adaptação das interfaces para diferentes dispositivos e tamanhos de tela.</dd>
-        </dl>
-        <p></p>
-        <h2>Jovem aprendiz</h2>
-        <dl className="details">
-          <dt>Empresa</dt><dd>Reframax</dd>
-          <dt>Cargo</dt><dd>Jovem aprendiz no SENAI</dd>
-          <dt>Período</dt><dd>Fevereiro/2025 até Dezembro/2025</dd>
-          <dt>Descrição</dt><dd>Participei do programa de aprendizagem profissional da Reframax, com formação em Elétrica Predial no SENAI, desenvolvendo conhecimentos teóricos e práticos da área.</dd>
-        </dl>
-      </article>
+      <div className="experience-list">
+        <article className="card experience-card">
+          <img className="company-logo" src={logoQuasar} alt="Quasar Tecnologia e Gestão" />
+          <h2>Modelagem de Processos</h2>
+          <dl className="details">
+            <dt>Empresa</dt><dd>Quasar Tecnologia e Gestão</dd>
+            <dt>Cargo</dt><dd>Estagiária de Analista de Produto</dd>
+            <dt>Período</dt><dd>Fevereiro/2026 até Agosto/2026</dd>
+            <dt>Descrição</dt><dd>Atuei na criação e modelagem de processos no sistema da empresa, utilizando BPMN para representar fluxos e participando de uma rotina de trabalho orientada por Scrum.</dd>
+          </dl>
+        </article>
+        <article className="card experience-card">
+          <img className="company-logo" src={logoQuasar} alt="Quasar Tecnologia e Gestão" />
+          <h2>Desenvolvimento Web</h2>
+          <dl className="details">
+            <dt>Empresa</dt><dd>Quasar Tecnologia e Gestão</dd>
+            <dt>Cargo</dt><dd>Estagiária de Desenvolvimento Web</dd>
+            <dt>Período</dt><dd>Setembro/2026 até atualmente</dd>
+            <dt>Descrição</dt><dd>Atuo no desenvolvimento front-end, com foco na responsividade do sistema e na adaptação das interfaces para diferentes dispositivos e tamanhos de tela.</dd>
+          </dl>
+        </article>
+        <article className="card experience-card">
+          <img className="company-logo" src={logoReframax} alt="Reframax" />
+          <h2>Jovem aprendiz</h2>
+          <dl className="details">
+            <dt>Empresa</dt><dd>Reframax</dd>
+            <dt>Cargo</dt><dd>Jovem aprendiz no SENAI</dd>
+            <dt>Período</dt><dd>Fevereiro/2025 até Dezembro/2025</dd>
+            <dt>Descrição</dt><dd>Participei do programa de aprendizagem profissional da Reframax, com formação em Elétrica Predial no SENAI, desenvolvendo conhecimentos teóricos e práticos da área.</dd>
+          </dl>
+        </article>
+      </div>
     )
   }
 
