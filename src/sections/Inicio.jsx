@@ -1,3 +1,4 @@
+import GameActions from '../components/GameActions.jsx'
 import fotoPrincipal from '../assets/images/fotoprincipal.jpeg'
 import { projetos, projetoDestaqueId } from '../data/projects.js'
 import VideoProjeto from '../components/VideoProjeto.jsx'
@@ -8,7 +9,7 @@ const atalhos = [
   { id: 'contato', icone: '〈〉', descricao: 'homeContactHint' },
 ]
 
-export default function Inicio({ t, onNavegar }) {
+export default function Inicio({ t, onNavegar, onJogar }) {
   const destaque = projetos.find((projeto) => projeto.id === projetoDestaqueId) ?? projetos[0]
   const abrir = (id) => onNavegar(id, 'conteudo')
 
@@ -53,6 +54,7 @@ export default function Inicio({ t, onNavegar }) {
             <ul className="technologies" aria-label={`${t.technologies} ${destaque.nome}`}>
               {destaque.tecnologias.map((tecnologia) => <li key={tecnologia}>{tecnologia}</li>)}
             </ul>
+            {destaque.jogo && <GameActions projeto={destaque} t={t} onJogar={onJogar} />}
             <button type="button" className="action-button secondary" onClick={() => onNavegar('projetos', `projeto-${destaque.id}`)}>{t.homeViewProject} <span aria-hidden="true">↗</span></button>
           </div>
           {destaque.imagem ? <img className="project-media" src={destaque.imagem} alt={t[destaque.alt]} loading="lazy" /> : <VideoProjeto src={destaque.video} nome={destaque.nome} t={t} />}

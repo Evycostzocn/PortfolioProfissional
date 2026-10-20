@@ -28,11 +28,12 @@ export const projetos = [
     id: 'big-bang',
     nome: 'Big Bang',
     descricao: 'bigbangDescription',
-    tecnologias: ['Python', 'Pygame', 'Pytest'],
+    tecnologias: ['Python', 'Pygame', 'Pytest', 'pygbag'],
     repositorio: 'https://github.com/defreitassl/Trabalho_Pygame',
     video: bigBang,
+    jogo: 'games/big-bang/index.html',
   },
 ]
 
 // Troque este ID para selecionar outro projeto do catálogo.
-export const projetoDestaqueId = 'infinity-hub'
+export const projetoDestaqueId = 'big-bang'

@@ -1,0 +1,5 @@
+/* Mantém o canvas inteiro dentro do iframe, na proporção original 1080 × 720. */
+html, body { margin: 0 !important; width: 100%; height: 100%; overflow: hidden; background: #202329; }
+canvas.emscripten, canvas#canvas { width: 100% !important; height: 100% !important; object-fit: contain; position: fixed; inset: 0; margin: 0 !important; border: 0 !important; }
+#infobox { max-width: 80%; box-sizing: border-box; font: 14px/1.5 system-ui, sans-serif; color: #e6e9f0 !important; background: #263c3a !important; border: 1px solid #55cbb4; border-radius: 4px; }
+#pyconsole, #crt { display: none; }

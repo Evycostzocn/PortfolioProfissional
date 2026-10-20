@@ -1,6 +1,22 @@
 // Traduções estáticas: use a mesma chave nos dois idiomas.
 export const translations = {
   "pt": {
+    "gameStage_runtime": "1/4 · Baixando e iniciando Python/WebAssembly pelo CDN do pygbag…",
+    "gameStage_package": "2/4 · Python iniciado. Baixando o pacote Big Bang…",
+    "gameStage_assets": "3/4 · Preparando imagens, fontes e áudio…",
+    "gameStage_starting": "4/4 · Iniciando Pygame e abrindo o menu…",
+
+    "gamePlay": "Jogar agora",
+    "gameGithub": "Ver no GitHub",
+    "gameClose": "Fechar jogo",
+    "gameControls": "Mouse: menus. Jogador 1: WASD. Jogador 2: setas (multiplayer local). No fim da partida, Enter, Espaço ou Esc voltam ao menu. F10 fecha o jogo.",
+    "gameKeyboard": "Requer teclado físico e mouse. Não há controles por toque; no celular, use um computador para jogar.",
+    "gameLanguage": "O jogo mantém sua interface original em português. As configurações de áudio desta sessão são reiniciadas ao reabrir.",
+    "gameLoading": "A primeira abertura precisa baixar o runtime Python. O menu aparece automaticamente; acompanhe a etapa abaixo.",
+    "gameReady": "Jogo pronto. Clique dentro do jogo para usar o teclado e ativar o áudio.",
+    "gameError": "Não foi possível iniciar o jogo. Confira sua conexão e tente novamente. Se continuar, o runtime ou os arquivos do jogo podem estar indisponíveis.",
+    "gameExited": "Jogo encerrado. Você pode reiniciar ou fechar para voltar ao portfólio.",
+
     "alexiaRecommendation": "A Evelyn é uma pessoa criativa, responsável e que contribui positivamente para os projetos dos quais participa, sempre trazendo ideias e demonstrando vontade de fazer a diferença. Tenho certeza de que suas habilidades e seu comprometimento serão grandes diferenciais em sua trajetória profissional.\n\nRecomendo seu trabalho com confiança e fico feliz em poder acompanhar seu crescimento profissional!",
     "inicio": "Início",
     "homeGreeting": "Olá, eu sou",
@@ -119,6 +135,22 @@ export const translations = {
     "wakaPeriodMismatch": "O intervalo retornado não corresponde a 30 dias. Confira a configuração deste compartilhamento no WakaTime."
   },
   "en": {
+    "gameStage_runtime": "1/4 · Downloading and starting Python/WebAssembly from the pygbag CDN…",
+    "gameStage_package": "2/4 · Python started. Downloading the Big Bang package…",
+    "gameStage_assets": "3/4 · Preparing images, fonts and audio…",
+    "gameStage_starting": "4/4 · Starting Pygame and opening the menu…",
+
+    "gamePlay": "Play now",
+    "gameGithub": "View on GitHub",
+    "gameClose": "Close game",
+    "gameControls": "Mouse: menus. Player 1: WASD. Player 2: arrow keys (local multiplayer). After a match, Enter, Space or Esc return to the menu. F10 closes the game.",
+    "gameKeyboard": "Requires a physical keyboard and mouse. There are no touch controls; on mobile, switch to a computer to play.",
+    "gameLanguage": "The game retains its original Portuguese interface. Audio settings for this session reset when reopening.",
+    "gameLoading": "The first launch needs to download the Python runtime. The menu opens automatically; follow the stage below.",
+    "gameReady": "Game ready. Click inside the game to use the keyboard and activate audio.",
+    "gameError": "Could not start the game. Check your connection and try again. If this persists, the runtime or game files may be unavailable.",
+    "gameExited": "Game ended. Restart or close to return to the portfolio.",
+
     "alexiaRecommendation": "Evelyn is a creative, responsible person who contributes positively to the projects she takes part in, always bringing ideas and showing a desire to make a difference. I am certain that her skills and commitment will be great assets throughout her professional journey.\n\nI confidently recommend her work and am happy to follow her professional growth!",
     "inicio": "Home",
     "homeGreeting": "Hello, I’m",

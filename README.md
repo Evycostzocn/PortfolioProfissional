@@ -216,8 +216,64 @@ As configurações são definidas por variáveis de ambiente. Para o site public
 - `src/sections/Inicio.jsx` compõe a apresentação, os atalhos e o projeto em destaque.
 - `src/App.jsx` inicia em `inicio` e mantém a navegação centralizada. Os atalhos da página inicial passam um destino para mover o foco ao conteúdo ou ao projeto; o terminal continua controlando seu próprio foco.
 - Edite os textos `home*` e `inicio` em `src/data/translations.js`, mantendo as mesmas chaves em PT e EN.
-- O catálogo compartilhado fica em `src/data/projects.js`. Altere `projetoDestaqueId` para `infinity-hub`, `desligaai` ou `big-bang`; título, descrição, tecnologias e mídia são reaproveitados na apresentação e na página de projetos.
+- O catálogo compartilhado fica em `src/data/projects.js`. O destaque atual é `big-bang`. Altere `projetoDestaqueId` para `infinity-hub`, `desligaai` ou `big-bang`; título, descrição, tecnologias e mídia são reaproveitados na apresentação e na página de projetos.
 - Em `src/App.css`, ajuste `--motion-duration` (320ms), `--motion-step` (65ms) e `--motion-distance` (8px) para mudar a entrada. O cursor usa `cursor-blink` por quatro ciclos. `prefers-reduced-motion` desativa animações e transições.
 - A aba continua identificando a seção atual, sem fechar arquivos. `inicio.md` também está disponível como comando do terminal.
 
 Verificação local: `npm run lint` e `npm run build`. Para conferir visualmente, execute `npm run dev` e teste os atalhos, PT/EN, teclado e telas pequenas. Não é necessário configurar serviços externos para abrir a página inicial.
+
+### Big Bang no navegador (pygbag)
+
+O destaque da página inicial e o card em Projetos compartilham `GameActions` e abrem uma única instância de `GameModal`. O iframe e os downloads do runtime só começam ao clicar em **Jogar agora**. Fechar o modal remove o iframe e encerra o jogo/áudio, restaura o foco ao botão e libera a rolagem. O modal usa mensagens da mesma origem e do iframe ativo para distinguir um menu realmente desenhado de um HTML apenas carregado. Falhas ou ausência de progresso por 90 segundos em uma etapa oferecem nova tentativa.
+
+O jogo tem resolução original 1080×720, singleplayer (WASD) e multiplayer **local** (jogador 2: setas). Os menus usam mouse; Enter, Espaço ou Esc voltam ao menu na tela de resultado. F10 fecha a experiência web. Não há controles de toque. O contêiner se adapta às telas pequenas, mas a partida requer teclado físico e mouse. O portfólio/instruções continuam PT/EN; imagens e textos internos do jogo mantêm o português original. No navegador, as configurações salvas ficam no filesystem temporário da sessão.
+
+**Preparação e execução local**, na raiz do portfólio:
+
+```bash
+python -m venv .venv-game
+source .venv-game/bin/activate
+python -m pip install -r Trabalho_Pygame/requirements.txt
+python -m pip install -r scripts/requirements-game-web.txt
+python Trabalho_Pygame/main.py
+```
+
+Também é necessário ter `ffmpeg` disponível no PATH para converter os efeitos WAV em OGG na cópia web. Os arquivos originais não são alterados. A implementação foi testada com Python 3.13.9, pygame-ce 2.5.8, pytest 9.1.1 e pygbag 0.9.3; o runtime web do template usa Python 3.12. Pygame e pygame-ce oferecem o módulo `pygame`; não instale as duas distribuições no mesmo ambiente. Para reproduzir exatamente os testes executados, use `python -m pip install pygame-ce==2.5.8 pytest==9.1.1` em um ambiente limpo em vez do requirements desktop.
+
+**Gerar ou atualizar a versão web** (na raiz, com o Python que tem pygbag instalado):
+
+```bash
+npm run build:game
+npm run dev
+```
+
+`build:game` executa `python scripts/build-game.py`: copia apenas `main.py`, `src`, `assets`, `data` e a licença para `.game-build/big-bang`, converte os efeitos com FFmpeg e executa:
+
+```bash
+python -m pygbag --build --no_opt --ume_block 0 --width 1080 --height 720 --app_name big-bang --package portfolio.bigbang .game-build/big-bang
+```
+
+Depois injeta a ponte de estado/teclado e o CSS em `public/games/big-bang/`. Use **o script completo**, não apenas o comando pygbag, para atualizar o portfólio. Nunca edite os arquivos gerados manualmente. O build inicial precisa acessar o CDN oficial do pygbag; visitantes também precisam acessá-lo para baixar Python/WASM e pygame. O pacote do jogo tem aproximadamente 3,3 MiB, além do runtime externo.
+
+**Build e publicação pelo fluxo Vite/Vercel:**
+
+```bash
+npm run lint
+npm run build
+npm run preview
+```
+
+O Vite copia `public/games/big-bang/` integralmente para `dist/games/big-bang/`. Ao publicar pelo fluxo Git já conectado à Vercel, inclua as alterações React, scripts e **todos os arquivos gerados em `public/games/big-bang/`**. O build Vercel continua sendo `npm run build`, com saída `dist`: não precisa instalar Python ou FFmpeg no servidor. Alterações no Python/assets exigem rodar `npm run build:game` novamente e incluir a saída atualizada antes da publicação. As configurações do painel Vercel não foram inspecionadas nesta sessão.
+
+A pasta adicionada `Trabalho_Pygame` possui seu próprio `.git`, preservado. Um `git add` dessa pasta no repositório pai pode registrá-la como repositório aninhado, sem incorporar seus arquivos. Organize o versionamento do fonte separadamente; os arquivos estáticos em `public/games/` pertencem ao portfólio e são suficientes para o deploy.
+
+**Validação do jogo:**
+
+```bash
+cd Trabalho_Pygame
+../.venv-game/bin/python -m pytest -q
+```
+
+Os testes incluem regras existentes, carregamento de imagens/fontes/áudio, loops cooperativos dos dois modos, menu e tela de resultado com SDL dummy. Isso não substitui validar WebAssembly no navegador. Nesta sessão não havia navegador acessível: ainda é necessário conferir uma partida real, áudio, movimento WASD/setas, carregamento em rede lenta, reabertura/fechamento, foco/Tab/F10 e layout em desktop/celular. Para falha de rede, bloqueie o CDN do pygbag nas ferramentas do navegador e confira o aviso e a nova tentativa.
+
+Correção de carregamento: o empacotador reduz apenas as imagens da cópia web às dimensões de exibição, remove a espera de interação de mídia do bootstrap e informa quatro etapas (runtime, pacote, recursos e menu). O áudio continua sujeito à política de interação do navegador. Erros Python anteriores à execução de `main.py` também são encaminhados ao modal. Para validar o HTML/pacote regenerado, rode `python scripts/test-game-build.py`; esse teste não executa WebAssembly.

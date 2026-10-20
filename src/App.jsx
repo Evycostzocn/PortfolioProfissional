@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Header from './components/Header.jsx'
 import Explorer from './components/Explorer.jsx'
 import Conteudo from './sections/Conteudo.jsx'
 import './App.css'
 
+import GameModal from './components/GameModal.jsx'
 import Terminal from './components/Terminal.jsx'
 import { translations } from './data/translations.js'
 import { secoes } from './data/navigation.js'
@@ -20,6 +21,8 @@ function lerIdioma() {
 export default function App() {
   // O estado guarda a seção aberta. Menu e explorador alteram o mesmo estado.
   const [secaoAtual, setSecaoAtual] = useState('inicio')
+  const [jogoAberto, setJogoAberto] = useState(null)
+  const fecharJogo = useCallback(() => setJogoAberto(null), [])
   const [destino, setDestino] = useState(null)
   const [idioma, setIdioma] = useState(lerIdioma)
   const t = translations[idioma]
@@ -63,12 +66,13 @@ export default function App() {
           <main id="conteudo" tabIndex={-1} aria-labelledby="titulo-secao">
             <div key={secaoAtual} className={`page-content${secaoAtual === 'inicio' ? ' home-content' : ''}`}>
             <h1 id="titulo-secao">{t[secao.id]}</h1>
-            <Conteudo secaoAtual={secaoAtual} t={t} onNavegar={abrirSecao} />
+            <Conteudo secaoAtual={secaoAtual} t={t} onNavegar={abrirSecao} onJogar={setJogoAberto} />
             </div>
           </main>
           <Terminal t={t} onNavegar={abrirSecao} />
         </div>
       </div>
+      {jogoAberto && <GameModal projeto={jogoAberto} t={t} onClose={fecharJogo} />}
       <footer>
         <span>© 2026 Evelyn Costa</span>
       </footer>

@@ -1,3 +1,4 @@
+import GameActions from '../components/GameActions.jsx'
 import Contato from './Contato.jsx'
 import WakaTime from './WakaTime.jsx'
 import Recomendacoes from './Recomendacoes.jsx'
@@ -9,8 +10,8 @@ import VideoProjeto from '../components/VideoProjeto.jsx'
 import Inicio from './Inicio.jsx'
 
 // Somente a seção selecionada é exibida. Os textos vêm de data/translations.js.
-export default function Conteudo({ secaoAtual, t, onNavegar }) {
-  if (secaoAtual === 'inicio') return <Inicio t={t} onNavegar={onNavegar} />
+export default function Conteudo({ secaoAtual, t, onNavegar, onJogar }) {
+  if (secaoAtual === 'inicio') return <Inicio t={t} onNavegar={onNavegar} onJogar={onJogar} />
 
   if (secaoAtual === 'sobre') {
     return (
@@ -48,7 +49,8 @@ export default function Conteudo({ secaoAtual, t, onNavegar }) {
                 <ul className="technologies" aria-label={`${t.technologies} ${projeto.nome}`}>
                   {projeto.tecnologias.map((tecnologia) => <li key={tecnologia}>{tecnologia}</li>)}
                 </ul>
-                <a className="repository-link" href={projeto.repositorio}>{t.repository} {projeto.nome} ↗</a>
+                {projeto.jogo && <GameActions projeto={projeto} t={t} onJogar={onJogar} />}
+                {!projeto.jogo && <a className="repository-link" href={projeto.repositorio}>{t.repository} {projeto.nome} ↗</a>}
                 {projeto.video ? (
                   <VideoProjeto src={projeto.video} nome={projeto.nome} t={t} />
                 ) : (
