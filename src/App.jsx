@@ -19,15 +19,25 @@ function lerIdioma() {
 
 export default function App() {
   // O estado guarda a seção aberta. Menu e explorador alteram o mesmo estado.
-  const [secaoAtual, setSecaoAtual] = useState('sobre')
+  const [secaoAtual, setSecaoAtual] = useState('inicio')
+  const [destino, setDestino] = useState(null)
   const [idioma, setIdioma] = useState(lerIdioma)
   const t = translations[idioma]
   const secao = secoes.find((item) => item.id === secaoAtual)
 
   // Uma única função atende menu, explorador e terminal, mantendo tudo sincronizado.
-  function abrirSecao(id) {
+  function abrirSecao(id, alvo = null) {
+    setDestino(alvo)
     setSecaoAtual(id)
   }
+
+  // Atalhos da apresentação recebem foco no destino; o terminal mantém seu próprio foco.
+  useEffect(() => {
+    if (!destino) return
+    const elemento = document.getElementById(destino)
+    elemento?.focus({ preventScroll: true })
+    elemento?.scrollIntoView({ block: 'start' })
+  }, [secaoAtual, destino])
 
   useEffect(() => {
     document.documentElement.lang = idioma === 'pt' ? 'pt-BR' : 'en'
@@ -51,8 +61,10 @@ export default function App() {
             <span className="active-tab">{secao.arquivo}</span>
           </div>
           <main id="conteudo" tabIndex={-1} aria-labelledby="titulo-secao">
+            <div key={secaoAtual} className={`page-content${secaoAtual === 'inicio' ? ' home-content' : ''}`}>
             <h1 id="titulo-secao">{t[secao.id]}</h1>
-            <Conteudo secaoAtual={secaoAtual} t={t} />
+            <Conteudo secaoAtual={secaoAtual} t={t} onNavegar={abrirSecao} />
+            </div>
           </main>
           <Terminal t={t} onNavegar={abrirSecao} />
         </div>

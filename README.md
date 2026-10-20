@@ -211,3 +211,13 @@ O envio utiliza o **EmailJS**, integrado ao React pelo SDK oficial `@emailjs/bro
 A integração foi configurada e testada com recebimento real das mensagens. Os textos e avisos estão disponíveis em português e inglês.
 
 As configurações são definidas por variáveis de ambiente. Para o site publicado, elas também devem ser configuradas na plataforma de hospedagem.
+### Página inicial e efeitos visuais
+
+- `src/sections/Inicio.jsx` compõe a apresentação, os atalhos e o projeto em destaque.
+- `src/App.jsx` inicia em `inicio` e mantém a navegação centralizada. Os atalhos da página inicial passam um destino para mover o foco ao conteúdo ou ao projeto; o terminal continua controlando seu próprio foco.
+- Edite os textos `home*` e `inicio` em `src/data/translations.js`, mantendo as mesmas chaves em PT e EN.
+- O catálogo compartilhado fica em `src/data/projects.js`. Altere `projetoDestaqueId` para `infinity-hub`, `desligaai` ou `big-bang`; título, descrição, tecnologias e mídia são reaproveitados na apresentação e na página de projetos.
+- Em `src/App.css`, ajuste `--motion-duration` (320ms), `--motion-step` (65ms) e `--motion-distance` (8px) para mudar a entrada. O cursor usa `cursor-blink` por quatro ciclos. `prefers-reduced-motion` desativa animações e transições.
+- A aba continua identificando a seção atual, sem fechar arquivos. `inicio.md` também está disponível como comando do terminal.
+
+Verificação local: `npm run lint` e `npm run build`. Para conferir visualmente, execute `npm run dev` e teste os atalhos, PT/EN, teclado e telas pequenas. Não é necessário configurar serviços externos para abrir a página inicial.

@@ -1,7 +1,15 @@
 import fotoJessica from '../assets/images/jessicarec.jpeg'
+import fotoAlexia from '../assets/images/alexia.png'
 
 // Para acrescentar recomendações, adicione um item e sua chave de texto nos dois idiomas.
 const recomendacoes = [
+  {
+    id: 'alexia',
+    nome: 'Alexia Andrade',
+    foto: fotoAlexia,
+    texto: 'alexiaRecommendation',
+    linkedin: 'https://www.linkedin.com/in/aalexiaandrade/',
+  },
   {
     id: 'jessica',
     nome: 'Jéssica Soares Muniz',
@@ -30,7 +38,9 @@ export default function Recomendacoes({ t }) {
             </a>
           </div>
           <div className="recommendation-content">
-            <blockquote lang={t.locale}>{t[recomendacao.texto]}</blockquote>
+            <blockquote lang={t.locale}>
+              {t[recomendacao.texto].split('\n\n').map((paragrafo) => <p key={paragrafo}>{paragrafo}</p>)}
+            </blockquote>
             {t.recommendationTranslation && (
               <p className="muted recommendation-translation">{t.recommendationTranslation}</p>
             )}

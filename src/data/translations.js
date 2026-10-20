@@ -1,6 +1,21 @@
 // Traduções estáticas: use a mesma chave nos dois idiomas.
 export const translations = {
   "pt": {
+    "alexiaRecommendation": "A Evelyn é uma pessoa criativa, responsável e que contribui positivamente para os projetos dos quais participa, sempre trazendo ideias e demonstrando vontade de fazer a diferença. Tenho certeza de que suas habilidades e seu comprometimento serão grandes diferenciais em sua trajetória profissional.\n\nRecomendo seu trabalho com confiança e fico feliz em poder acompanhar seu crescimento profissional!",
+    "inicio": "Início",
+    "homeGreeting": "Olá, eu sou",
+    "homeHeadline": "Explorando ideias, construindo software.",
+    "homeSummary": "Estudo Engenharia de Software na PUC Minas e sou estagiária em Desenvolvimento Web na Quasar Tecnologia e Gestão. Gosto de transformar ideias em soluções e aprender a cada projeto.",
+    "homeCode": "aprendendo e construindo",
+    "homeProjects": "Ver projetos",
+    "homeContact": "Entrar em contato",
+    "homeExplore": "Explore meu portfólio",
+    "homeProjectsHint": "Ideias que se tornaram projetos durante minha formação.",
+    "homeExperienceHint": "Conheça minha trajetória e atuação profissional.",
+    "homeContactHint": "Vamos conversar sobre ideias e oportunidades.",
+    "homeFeatured": "Projeto em destaque",
+    "homeViewProject": "Conhecer o projeto",
+
     "portfolio": "Portfólio",
     "skip": "Pular para o conteúdo",
     "mainMenu": "Menu principal",
@@ -104,6 +119,21 @@ export const translations = {
     "wakaPeriodMismatch": "O intervalo retornado não corresponde a 30 dias. Confira a configuração deste compartilhamento no WakaTime."
   },
   "en": {
+    "alexiaRecommendation": "Evelyn is a creative, responsible person who contributes positively to the projects she takes part in, always bringing ideas and showing a desire to make a difference. I am certain that her skills and commitment will be great assets throughout her professional journey.\n\nI confidently recommend her work and am happy to follow her professional growth!",
+    "inicio": "Home",
+    "homeGreeting": "Hello, I’m",
+    "homeHeadline": "Exploring ideas, building software.",
+    "homeSummary": "I study Software Engineering at PUC Minas and work as a Web Development intern at Quasar Tecnologia e Gestão. I enjoy turning ideas into solutions and learning with every project.",
+    "homeCode": "learning and building",
+    "homeProjects": "View projects",
+    "homeContact": "Get in touch",
+    "homeExplore": "Explore my portfolio",
+    "homeProjectsHint": "Ideas turned into projects throughout my education.",
+    "homeExperienceHint": "Discover my journey and professional experience.",
+    "homeContactHint": "Let’s talk about ideas and opportunities.",
+    "homeFeatured": "Featured project",
+    "homeViewProject": "Explore the project",
+
     "portfolio": "Portfolio",
     "skip": "Skip to content",
     "mainMenu": "Main menu",

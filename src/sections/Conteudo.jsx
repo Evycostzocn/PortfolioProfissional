@@ -4,42 +4,14 @@ import Recomendacoes from './Recomendacoes.jsx'
 import fotoPrincipal from '../assets/images/fotoprincipal.jpeg'
 import logoQuasar from '../assets/images/quasar.jpeg'
 import logoReframax from '../assets/images/reframax.jpeg'
-import infinityHub from '../assets/images/infinityhub.png'
-import desligaAi from '../assets/images/desligaai.png'
-import bigBang from '../assets/images/bigbang.mp4'
+import { projetos } from '../data/projects.js'
 import VideoProjeto from '../components/VideoProjeto.jsx'
-
-// Ordem provisória: reorganize esta lista do mais antigo ao mais recente
-// quando as datas forem confirmadas. As chaves de texto apontam para data/translations.js.
-// Descrições e tecnologias conferidas nos repositórios indicados em cada item.
-const projetos = [
-  {
-    nome: 'Infinity HUB',
-    descricao: 'infinityDescription',
-    tecnologias: ['HTML', 'CSS', 'JavaScript', 'JSON Server'],
-    repositorio: 'https://github.com/Evycostzocn/InfinityHUB',
-    imagem: infinityHub,
-    alt: 'infinityAlt',
-  },
-  {
-    nome: 'DesligaAi',
-    descricao: 'desligaDescription',
-    tecnologias: ['HTML', 'CSS', 'JavaScript'],
-    repositorio: 'https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-2-ti1-2401100-desligaai',
-    imagem: desligaAi,
-    alt: 'desligaAlt',
-  },
-  {
-    nome: 'Big Bang',
-    descricao: 'bigbangDescription',
-    tecnologias: ['Python', 'Pygame', 'Pytest'],
-    repositorio: 'https://github.com/defreitassl/Trabalho_Pygame',
-    video: bigBang,
-  },
-]
+import Inicio from './Inicio.jsx'
 
 // Somente a seção selecionada é exibida. Os textos vêm de data/translations.js.
-export default function Conteudo({ secaoAtual, t }) {
+export default function Conteudo({ secaoAtual, t, onNavegar }) {
+  if (secaoAtual === 'inicio') return <Inicio t={t} onNavegar={onNavegar} />
+
   if (secaoAtual === 'sobre') {
     return (
       <>
@@ -70,7 +42,7 @@ export default function Conteudo({ secaoAtual, t }) {
         <ol className="timeline">
           {projetos.map((projeto) => (
             <li key={projeto.nome}>
-              <article className="card project-card">
+              <article id={`projeto-${projeto.id}`} tabIndex={-1} className="card project-card">
                 <h2>{projeto.nome}</h2>
                 <p>{t[projeto.descricao]}</p>
                 <ul className="technologies" aria-label={`${t.technologies} ${projeto.nome}`}>

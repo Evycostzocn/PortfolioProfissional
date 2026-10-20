@@ -1,5 +1,6 @@
 // Os arquivos são os mesmos em português e inglês e também são comandos do terminal.
 export const secoes = [
+  { id: 'inicio', arquivo: 'inicio.md' },
   { id: 'sobre', arquivo: 'sobre.md' },
   { id: 'projetos', arquivo: 'projetos.json' },
   { id: 'experiencias', arquivo: 'experiencias.md' },
